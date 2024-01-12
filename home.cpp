@@ -5,10 +5,11 @@
 #include <time.h>
 #include <conio.h>
 
-int score = 0;
+int score = 8448;
+int count =0;
 bool playable = true;
 using namespace std;
-
+int error = 0;
 class Playground{
     int size;
     public:
@@ -129,20 +130,23 @@ void movedown(int arr[4][4]){
 int check(int arr[4][4]){
     for(int i =0;i<3;i++){
         for(int j =0;j<3;j++){
-            // if((arr[i][j] != arr[i+1][j] && arr[i+1][j]!=0) 
-            // && (arr[i][j] != arr[i][j+1] && arr[i][j+1] != 0)
-            // && (arr[i-1][j] != arr[i][j] && arr[i-1][j]!=0) 
-            // && (arr[i][j-1] != arr[i][j]&& arr[i][j-1])!=0){ 
-            //         cout << arr[i][j]<<endl;
-            //         cout << "You lost!" << endl;
-            //         playable = false;
-            //         return 0;
-            // }
-            // else{
-            //     return 1;
-            // }
+            if((arr[i][j] != arr[i+1][j] && arr[i+1][j]!=0) 
+            && (arr[i][j] != arr[i][j+1] && arr[i][j+1] != 0)
+            && (arr[i-1][j] != arr[i][j] && arr[i-1][j]!=0) 
+            && (arr[i][j-1] != arr[i][j]&& arr[i][j-1])!=0){ 
+                    count ++;
+                    // cout << "You lost!" << endl;
+                    // playable = false;
+                    // return 0;
+            }
+            if(count == 16){
+                    cout << "You lost!" << endl;
+                    playable = false;
+
+            }
             if(arr[i][j] ==2048){
                 cout<<"You won!"<<endl;
+
                 playable = false;
             }
         }
@@ -167,22 +171,23 @@ void Restart(int arr[4][4]){
 void play(int arr[4][4]){
     char x;
     cin >> x;
-    if(x =='l'){
+    if(x =='a'){
         moveleft(arr);
     }
-    else if(x == 'r'){
+    else if(x == 'd'){
         moveright(arr);
     }
-    else if(x == 'u'){
+    else if(x == 'w'){
         moveup(arr);
     }
-    else if(x =='d'){
+    else if(x =='s'){
         movedown(arr);
     }
     else if(x == 'S'){
         playable = false;
         cout<<
         "Game stopped"<<endl;
+        
     }
     else if(x == 'R'){
         Restart(arr);
@@ -198,17 +203,33 @@ int main(){
     // playground[0][0] =4;
     // playground[0][1] =4;
     playground[0][3] =2;
+    playground[0][2] =4;
+    playground [0][1] =8;
+    playground[0][0] =64;
+    playground[1][0] = 16;
+    playground[1][1] = 32;
+    playground[1][2] = 2; 
+    playground[1][3] = 128;
+    playground[2][0] = 2;
+    playground[2][1] = 64;
+    playground[2][2] = 16;
+    playground[2][3] = 32;
+    playground[3][0] = 256;
+    playground[3][1] = 512;
+    playground[3][2] = 128;
+    playground[3][3] = 1024;
     cout<<"Ready to play?Type c if yes or any letter if no(lowercase)"<<endl;
     cin >> ans;
+    system("cls");
     if(ans == 'c'){
         while(playable){
            check(playground);
            print(playground);
            cout << "Score:"<<score<<endl;
-           cout << "Type l to move left"
-           <<endl<<"     r to move right"
-           <<endl<<"     u to move up "
-           <<endl<<"     d to move down"
+           cout << "Type a to move left"
+           <<endl<<"     d to move right"
+           <<endl<<"     w to move up "
+           <<endl<<"     s to move down"
            <<endl<<"     R to restart the game"
            <<endl;
            cout <<"Type S to stop the game"<<endl;
