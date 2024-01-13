@@ -5,7 +5,7 @@
 #include <time.h>
 #include <conio.h>
 
-int score = 8448;
+int score = 0;
 int count =0;
 bool playable = true;
 using namespace std;
@@ -202,10 +202,16 @@ int main(){
     memset(playground,0,sizeof(playground));
     // playground[0][0] =4;
     // playground[0][1] =4;
-    playground[0][3] =2;
-    ;
+    playground[0][3] = 2;
+    cout<<"How to play:2048 is played on a plain 4x4 grid, with numbered tiles that slide when a player moves them using the four arrow keys.\n"
+    <<"Tiles slide as far as possible in the chosen direction until they are stopped by either another tile or the edge of the grid.\n"
+    <<"If two tiles of the same number collide while moving, they will merge into a tile with the total value of the two tiles that collided.\n"
+    <<"When the player has no legal moves(there are no empty spaces and no adjacent tiles with the same value), the game ends. \n"
+    <<"A scoreboard on the upper-right keeps track of the user's score.\n \n \n";
+   
     cout<<"Ready to play?Type c if yes or any letter if no(lowercase)"<<endl;
     cin >> ans;
+    getch();
     system("cls");
     if(ans == 'c'){
         while(playable){
@@ -220,9 +226,11 @@ int main(){
            <<endl;
            cout <<"Type S to stop the game"<<endl;
            play(playground);
+           getch();
            system("cls");
         }
     }else{
+        cout<<"You choose not to play"<<endl;
         return 0;
     }
     // generate(playground);
