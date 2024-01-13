@@ -42,15 +42,17 @@ class Playground{
 
 void moveleft(int arr[4][4]){
    for(int i =0;i<4;i++){
+       int pcount = 0;
      for(int a =0;a<4;a++){
         if(arr[i][a]==0){
             continue;
         }else{
             for(int j =a;j>0;j--){
-        if(  arr[i][j-1]==arr[i][j]){
+        if((arr[i][j-1]==arr[i][j])&&pcount ==0){
             arr[i][j-1] += arr[i][j];
             score += arr[i][j-1];
             arr[i][j] = 0;
+            pcount = 1;
         }
         if(arr[i][j-1] ==0){
             int temp = arr[i][j];
@@ -70,15 +72,17 @@ void moveleft(int arr[4][4]){
 }
 void moveright(int arr[4][4]){
    for(int i =0;i<4;i++){
+    int pcount = 0;
     for(int a =3;a>=0;a--){
         if(arr[i][a]==0){
             continue;
         }else{
             for(int j =a;j<3;j++){
-              if(arr[i][j+1]==arr[i][j]){
+              if(arr[i][j+1]==arr[i][j]&&pcount ==0){
               arr[i][j+1] += arr[i][j];
               score +=arr[i][j+1];
                arr[i][j] = 0;
+               pcount =1;
               }
         if(arr[i][j+1] ==0){
             arr[i][j+1] = arr[i][j];
@@ -100,16 +104,18 @@ void moveright(int arr[4][4]){
 }
 void moveup(int arr[4][4]){
    for(int j=3;j>=0;j--){
+      int pcount =0;
       for(int a =0;a<4;a++){
         if(arr[a][j]==0){
             continue;
         }
         else{
              for(int i =a;i>=0;i--){
-        if(arr[i-1][j]==arr[i][j]){
+        if(arr[i-1][j]==arr[i][j]&&pcount ==0){
             arr[i-1][j] += arr[i][j];
             score += arr[i-1][j];
             arr[i][j]=0;
+            pcount =1;
         }
         if(arr[i-1][j] ==0 ){
             arr[i-1][j] = arr[i][j];
@@ -128,15 +134,17 @@ void moveup(int arr[4][4]){
 }
 void movedown(int arr[4][4]){
    for(int j =0;j<4;j++){
+    int pcount =0;
       for(int a =0;a<4;a++){
         if(arr[a][j]==0){
             continue;
         }else{
             for(int i =a;i<4;i++){
-        if(arr[i+1][j]==arr[i][j]){
+        if(arr[i+1][j]==arr[i][j]&&pcount ==0){
             arr[i+1][j] += arr[i][j];
             score += arr[i+1][j];
             arr[i][j]=0;
+            pcount=1;
         }
         if(arr[i+1][j]==0){
             int temp = arr[i][j];
@@ -229,8 +237,9 @@ int main(){
     memset(playground,0,sizeof(playground));
     // playground[0][0] =4;
     // playground[0][1] =4;
-    playground[3][0] = 2;
-    playground[2][0] =4;
+    playground[0][2] = 2;
+    playground[0][3] =4;
+    playground[0][0]=2;
     cout<<"How to play:2048 is played on a plain 4x4 grid, with numbered tiles that slide when a player moves them using the four arrow keys.\n"
     <<"Tiles slide as far as possible in the chosen direction until they are stopped by either another tile or the edge of the grid.\n"
     <<"If two tiles of the same number collide while moving, they will merge into a tile with the total value of the two tiles that collided.\n"
