@@ -29,20 +29,24 @@ class Playground{
     
 };
 
-void generate(int arr[4][4]){
-    srand(time(0));
-    for(int i =0;i<4;i++){
-        for(int j =0;i<4;j++){
-            if(arr[i][j]==0){
-                cout<<arr[rand()%4][rand()%4] ;
-            }
-        }
-    }
-}
+// void generate(int arr[4][4]){
+//     srand(time(0));
+//     for(int i =0;i<4;i++){
+//         for(int j =0;i<4;j++){
+//             if(arr[i][j]==0){
+//                 cout<<arr[rand()%4][rand()%4] ;
+//             }
+//         }
+//     }
+// }
 
 void moveleft(int arr[4][4]){
    for(int i =0;i<4;i++){
-    for(int j =3;j>0;j--){
+     for(int a =0;a<4;a++){
+        if(arr[i][a]==0){
+            continue;
+        }else{
+            for(int j =a;j>0;j--){
         if(  arr[i][j-1]==arr[i][j]){
             arr[i][j-1] += arr[i][j];
             score += arr[i][j-1];
@@ -54,6 +58,8 @@ void moveleft(int arr[4][4]){
             arr[i][j-1]= temp;
         }
     }
+        }
+     }
    }
    for(int a =0;a<4;a++){
     if(arr[a][3] == 0){
@@ -64,16 +70,24 @@ void moveleft(int arr[4][4]){
 }
 void moveright(int arr[4][4]){
    for(int i =0;i<4;i++){
-    for(int j =0;j<3;j++){
-        if(  arr[i][j+1]==arr[i][j]){
-            arr[i][j+1] += arr[i][j];
-            score +=arr[i][j+1];
-            arr[i][j] = 0;
-        }
+    for(int a =3;a>=0;a--){
+        if(arr[i][a]==0){
+            continue;
+        }else{
+            for(int j =a;j<3;j++){
+              if(arr[i][j+1]==arr[i][j]){
+              arr[i][j+1] += arr[i][j];
+              score +=arr[i][j+1];
+               arr[i][j] = 0;
+              }
         if(arr[i][j+1] ==0){
             arr[i][j+1] = arr[i][j];
             arr[i][j] =0;
         }
+    }
+
+        }
+
     }
    }
    for(int a =0;a<4;a++){
@@ -86,7 +100,12 @@ void moveright(int arr[4][4]){
 }
 void moveup(int arr[4][4]){
    for(int j=3;j>=0;j--){
-    for(int i =3;i>=0;i--){
+      for(int a =0;a<4;a++){
+        if(arr[a][j]==0){
+            continue;
+        }
+        else{
+             for(int i =a;i>=0;i--){
         if(arr[i-1][j]==arr[i][j]){
             arr[i-1][j] += arr[i][j];
             score += arr[i-1][j];
@@ -97,6 +116,8 @@ void moveup(int arr[4][4]){
             arr[i][j] =0;
         }
     }
+        }
+      }
    }
    for(int a =0;a<4;a++){
     if(arr[3][a]==0){
@@ -107,7 +128,11 @@ void moveup(int arr[4][4]){
 }
 void movedown(int arr[4][4]){
    for(int j =0;j<4;j++){
-    for(int i =0;i<4;i++){
+      for(int a =0;a<4;a++){
+        if(arr[a][j]==0){
+            continue;
+        }else{
+            for(int i =a;i<4;i++){
         if(arr[i+1][j]==arr[i][j]){
             arr[i+1][j] += arr[i][j];
             score += arr[i+1][j];
@@ -119,6 +144,8 @@ void movedown(int arr[4][4]){
             arr[i+1][j] = temp;
         }
     }
+        }
+      }
    }
    for(int a =0;a<4;a++){
     if(arr[0][a]==0){
@@ -202,7 +229,8 @@ int main(){
     memset(playground,0,sizeof(playground));
     // playground[0][0] =4;
     // playground[0][1] =4;
-    playground[0][3] = 2;
+    playground[3][0] = 2;
+    playground[2][0] =4;
     cout<<"How to play:2048 is played on a plain 4x4 grid, with numbered tiles that slide when a player moves them using the four arrow keys.\n"
     <<"Tiles slide as far as possible in the chosen direction until they are stopped by either another tile or the edge of the grid.\n"
     <<"If two tiles of the same number collide while moving, they will merge into a tile with the total value of the two tiles that collided.\n"
