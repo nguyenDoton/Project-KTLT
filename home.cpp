@@ -106,6 +106,7 @@ void moveup(int arr[4][4]){
    for(int j=3;j>=0;j--){
       int pcount =0;
       for(int a =0;a<4;a++){
+        
         if(arr[a][j]==0){
             continue;
         }
@@ -133,9 +134,10 @@ void moveup(int arr[4][4]){
    }
 }
 void movedown(int arr[4][4]){
-   for(int j =0;j<4;j++){
-    int pcount =0;
-      for(int a =0;a<4;a++){
+   for(int j =3;j>=0;j--){
+   int pcount =0;
+      for(int a =3;a>=0;a--){
+        
         if(arr[a][j]==0){
             continue;
         }else{
@@ -147,9 +149,8 @@ void movedown(int arr[4][4]){
             pcount=1;
         }
         if(arr[i+1][j]==0){
-            int temp = arr[i][j];
-            arr[i][j] = arr[i+1][j];
-            arr[i+1][j] = temp;
+           arr[i+1][j] =arr[i][j];
+           arr[i][j] =0;
         }
     }
         }
@@ -163,29 +164,38 @@ void movedown(int arr[4][4]){
    }
 }
 int check(int arr[4][4]){
-    for(int i =0;i<3;i++){
+    count =0;
+    for(int i =0;i<4;i++){
         for(int j =0;j<3;j++){
-            if((arr[i][j] != arr[i+1][j] && arr[i+1][j]!=0) 
-            && (arr[i][j] != arr[i][j+1] && arr[i][j+1] != 0)
-            && (arr[i-1][j] != arr[i][j] && arr[i-1][j]!=0) 
-            && (arr[i][j-1] != arr[i][j]&& arr[i][j-1])!=0){ 
+            if(arr[i][j]==0){
+                break;
+            }
+            
+            if(arr[i][j] != arr[i+1][j] 
+            && arr[i][j] != arr[i][j+1] 
+            && arr[i-1][j] != arr[i][j]
+            && arr[i][j-1] != arr[i][j]){ 
+                   
                     count ++;
                     // cout << "You lost!" << endl;
                     // playable = false;
                     // return 0;
             }
-            if(count == 16){
-                    cout << "You lost!" << endl;
-                    playable = false;
-
-            }
+           
             if(arr[i][j] ==2048){
                 cout<<"You won!"<<endl;
 
                 playable = false;
             }
+          
         }
     }
+    if(count == 12){
+            cout << "You lost!" << endl;
+                playable = false;
+
+    }
+    
 }
 void print(int arr[4][4]){
       for(int i =0;i<4;i++){
@@ -233,13 +243,11 @@ void play(int arr[4][4]){
 }
 
 int main(){
-    int playground[4][4];char ans;
+    int playground[4][4];
+    char ans;
     memset(playground,0,sizeof(playground));
-    // playground[0][0] =4;
-    // playground[0][1] =4;
-    playground[0][2] = 2;
-    playground[0][3] =4;
-    playground[0][0]=2;
+    
+    playground[3][1] =4;
     cout<<"How to play:2048 is played on a plain 4x4 grid, with numbered tiles that slide when a player moves them using the four arrow keys.\n"
     <<"Tiles slide as far as possible in the chosen direction until they are stopped by either another tile or the edge of the grid.\n"
     <<"If two tiles of the same number collide while moving, they will merge into a tile with the total value of the two tiles that collided.\n"
@@ -252,7 +260,7 @@ int main(){
     system("cls");
     if(ans == 'c'){
         while(playable){
-           check(playground);
+           
            print(playground);
            cout << "Score:"<<score<<endl;
            cout << "Type a to move left"
@@ -263,6 +271,7 @@ int main(){
            <<endl;
            cout <<"Type S to stop the game"<<endl;
            play(playground);
+           check(playground);
            getch();
            system("cls");
         }
